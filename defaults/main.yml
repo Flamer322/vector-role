@@ -1,0 +1,11 @@
+---
+vector_version: "0.44.0"
+
+vector_package_architecture: amd64
+
+vector_deb_url: "https://apt.vector.dev/pool/v/ve/vector_{{ vector_version }}-1_{{ vector_package_architecture }}.deb"
+
+vector_config_path: /etc/vector/vector.yaml
+
+vector_service_enabled: true
+vector_service_state: started
