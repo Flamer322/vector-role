@@ -1,0 +1,41 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+
+  vars_files:
+    - ../../defaults/main.yml
+
+  tasks:
+    - name: Check that Vector binary exists
+      ansible.builtin.stat:
+        path: /usr/bin/vector
+      register: vector_binary
+
+    - name: Assert Vector binary exists
+      ansible.builtin.assert:
+        that:
+          - vector_binary.stat.exists
+          - vector_binary.stat.executable
+        fail_msg: Vector binary was not installed.
+
+    - name: Check Vector version
+      ansible.builtin.command:
+        cmd: vector --version
+      changed_when: false
+      register: vector_version_output
+
+    - name: Assert Vector version
+      ansible.builtin.assert:
+        that:
+          - vector_version in vector_version_output.stdout
+
+    - name: Validate Vector configuration
+      ansible.builtin.command:
+        cmd: vector validate {{ vector_config_path }}
+      changed_when: false
+
+    - name: Check Vector service
+      ansible.builtin.command:
+        cmd: systemctl is-active vector
+      changed_when: false

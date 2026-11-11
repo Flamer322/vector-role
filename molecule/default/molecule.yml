@@ -1,0 +1,38 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: ubuntu
+    image: vector-role-ubuntu:latest
+    pre_build_image: true
+    privileged: true
+    command: /sbin/init
+
+  - name: oraclelinux
+    image: vector-role-oraclelinux:latest
+    pre_build_image: true
+    privileged: true
+    command: /sbin/init
+
+provisioner:
+  name: ansible
+
+  config_options:
+    defaults:
+      roles_path: ../../
+      ALLOW_BROKEN_CONDITIONALS: true
+      deprecation_warnings: false
+
+  inventory:
+    host_vars:
+      ubuntu:
+        ansible_user: root
+      oraclelinux:
+        ansible_user: root
+
+verifier:
+  name: ansible

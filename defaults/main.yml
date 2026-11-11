@@ -2,8 +2,10 @@
 vector_version: "0.44.0"
 
 vector_package_architecture: amd64
+vector_rpm_architecture: x86_64
 
 vector_deb_url: "https://apt.vector.dev/pool/v/ve/vector_{{ vector_version }}-1_{{ vector_package_architecture }}.deb"
+vector_rpm_url: "https://yum.vector.dev/stable/vector-0/{{ vector_rpm_architecture }}/vector-{{ vector_version }}-1.{{ vector_rpm_architecture }}.rpm"
 
 vector_config_path: /etc/vector/vector.yaml
 

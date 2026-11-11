@@ -1,20 +1,16 @@
 ---
-- name: Update apt cache
+- name: Install Vector on Debian-based systems
   ansible.builtin.apt:
-    update_cache: true
-    cache_valid_time: 3600
-
-- name: Download Vector distribution
-  ansible.builtin.get_url:
-    url: "{{ vector_deb_url }}"
-    dest: "/tmp/vector_{{ vector_version }}.deb"
-    mode: "0644"
-
-- name: Install Vector
-  ansible.builtin.apt:
-    deb: "/tmp/vector_{{ vector_version }}.deb"
+    deb: "{{ vector_deb_url }}"
     state: present
-  notify: Restart Vector
+  when: ansible_os_family == "Debian"
+
+- name: Install Vector on RedHat-based systems
+  ansible.builtin.dnf:
+    name: "{{ vector_rpm_url }}"
+    state: present
+    disable_gpg_check: true
+  when: ansible_os_family == "RedHat"
 
 - name: Configure Vector
   ansible.builtin.template:

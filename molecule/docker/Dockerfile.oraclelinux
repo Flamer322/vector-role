@@ -1,0 +1,10 @@
+FROM oraclelinux:8
+
+ENV container=docker
+
+RUN dnf install -y python39 systemd sudo \
+    && dnf clean all
+
+STOPSIGNAL SIGRTMIN+3
+
+CMD ["/sbin/init"]
