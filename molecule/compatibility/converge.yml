@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  become: false
+
+  roles:
+    - role: "{{ playbook_dir }}/../.."
+      vars:
+        vector_service_manage: false

@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: podman
+
+platforms:
+  - name: ubuntu
+    image: ubuntu:22.04
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+  inventory:
+    host_vars:
+      ubuntu:
+        ansible_python_interpreter: /usr/bin/python3
+
+verifier:
+  name: ansible

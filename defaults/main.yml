@@ -11,3 +11,5 @@ vector_config_path: /etc/vector/vector.yaml
 
 vector_service_enabled: true
 vector_service_state: started
+
+vector_service_manage: true

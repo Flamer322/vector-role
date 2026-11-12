@@ -1,0 +1,21 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Check Vector installation
+      ansible.builtin.command:
+        cmd: vector --version
+      register: vector_version_output
+      changed_when: false
+
+    - name: Assert Vector is installed
+      ansible.builtin.assert:
+        that:
+          - vector_version_output.rc == 0
+
+    - name: Validate Vector configuration
+      ansible.builtin.command:
+        cmd: vector validate /etc/vector/vector.yaml
+      changed_when: false

@@ -1,0 +1,17 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.raw: apt-get update
+      changed_when: false
+
+    - name: Install required packages
+      ansible.builtin.raw: apt-get install -y python3 ca-certificates sudo
+      changed_when: true
+
+    - name: Update CA certificates
+      ansible.builtin.raw: update-ca-certificates
+      changed_when: true
